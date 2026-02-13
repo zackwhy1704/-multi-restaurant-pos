@@ -5,7 +5,6 @@ import './MerchantDashboard.css';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 function MerchantDashboard() {
-  const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [paymentMethods, setPaymentMethods] = useState({});
   const [saving, setSaving] = useState(false);
@@ -19,7 +18,6 @@ function MerchantDashboard() {
   const fetchRestaurants = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/api/restaurants`);
-      setRestaurants(response.data.restaurants || []);
       if (response.data.restaurants && response.data.restaurants.length > 0) {
         selectRestaurant(response.data.restaurants[0]);
       }
