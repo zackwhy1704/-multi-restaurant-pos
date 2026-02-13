@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './MerchantDashboard.css';
 
@@ -11,11 +11,12 @@ function MerchantDashboard() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    fetchRestaurants();
+  const selectRestaurant = useCallback((restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setPaymentMethods(restaurant.paymentMethods || {});
   }, []);
 
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/api/restaurants`);
       setRestaurants(response.data.restaurants || []);
@@ -25,12 +26,11 @@ function MerchantDashboard() {
     } catch (err) {
       console.error('Failed to fetch restaurants:', err);
     }
-  };
+  }, [selectRestaurant]);
 
-  const selectRestaurant = (restaurant) => {
-    setSelectedRestaurant(restaurant);
-    setPaymentMethods(restaurant.paymentMethods || {});
-  };
+  useEffect(() => {
+    fetchRestaurants();
+  }, [fetchRestaurants]);
 
   const togglePaymentMethod = (method) => {
     setPaymentMethods({

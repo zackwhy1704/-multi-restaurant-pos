@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './KitchenDisplay.css';
 
@@ -9,24 +9,16 @@ function KitchenDisplay() {
   const [selectedRestaurant, setSelectedRestaurant] = useState('all');
   const [restaurants, setRestaurants] = useState([]);
 
-  useEffect(() => {
-    fetchOrders();
-    fetchRestaurants();
-    // Poll for new orders every 3 seconds
-    const interval = setInterval(fetchOrders, 3000);
-    return () => clearInterval(interval);
-  }, [selectedRestaurant]);
-
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/api/restaurants`);
       setRestaurants(response.data.restaurants || []);
     } catch (err) {
       console.error('Failed to fetch restaurants:', err);
     }
-  };
+  }, []);
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const params = selectedRestaurant !== 'all' ? { restaurantId: selectedRestaurant } : {};
       const response = await axios.get(`${API_URL}/api/orders`, { params });
@@ -34,7 +26,15 @@ function KitchenDisplay() {
     } catch (err) {
       console.error('Failed to fetch orders:', err);
     }
-  };
+  }, [selectedRestaurant]);
+
+  useEffect(() => {
+    fetchOrders();
+    fetchRestaurants();
+    // Poll for new orders every 3 seconds
+    const interval = setInterval(fetchOrders, 3000);
+    return () => clearInterval(interval);
+  }, [fetchOrders, fetchRestaurants]);
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
