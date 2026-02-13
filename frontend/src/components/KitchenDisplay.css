@@ -1,0 +1,243 @@
+.kitchen-display {
+  background: #1f2937;
+  min-height: 100vh;
+  color: white;
+}
+
+.kds-header {
+  background: #111827;
+  padding: 16px 24px;
+  border-bottom: 2px solid #374151;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 48px;
+  z-index: 100;
+}
+
+.kds-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.restaurant-filter select {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.stats {
+  display: flex;
+  gap: 24px;
+}
+
+.stat {
+  padding: 8px 16px;
+  background: #374151;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.kds-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 16px;
+  height: calc(100vh - 120px);
+}
+
+.kds-column {
+  background: #111827;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.column-header {
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 3px solid;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.column-header.new {
+  background: #1e3a8a;
+  border-color: #3b82f6;
+}
+
+.column-header.preparing {
+  background: #92400e;
+  border-color: #f59e0b;
+}
+
+.column-header.ready {
+  background: #065f46;
+  border-color: #10b981;
+}
+
+.orders-list {
+  padding: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.order-card {
+  background: #1f2937;
+  border: 2px solid #374151;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: all 0.3s;
+}
+
+.order-card.warning {
+  border-color: #f59e0b;
+  background: #451a03;
+  animation: pulse-warning 2s infinite;
+}
+
+.order-card.urgent {
+  border-color: #ef4444;
+  background: #450a0a;
+  animation: pulse-urgent 1s infinite;
+}
+
+@keyframes pulse-warning {
+  0%, 100% { border-color: #f59e0b; }
+  50% { border-color: #fbbf24; }
+}
+
+@keyframes pulse-urgent {
+  0%, 100% { border-color: #ef4444; }
+  50% { border-color: #f87171; }
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.order-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.order-time {
+  background: #374151;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.restaurant-name {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.order-items {
+  margin: 12px 0;
+}
+
+.order-item {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #374151;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.quantity {
+  background: #374151;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  min-width: 40px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.item-name {
+  flex: 1;
+  font-size: 14px;
+}
+
+.order-total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #10b981;
+  margin: 12px 0;
+  text-align: right;
+}
+
+.order-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.btn-start {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-start:hover {
+  background: #2563eb;
+}
+
+.btn-ready {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-ready:hover {
+  background: #d97706;
+}
+
+.btn-complete {
+  background: #10b981;
+  color: white;
+}
+
+.btn-complete:hover {
+  background: #059669;
+}
+
+@media (max-width: 1024px) {
+  .kds-columns {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .stats {
+    display: none;
+  }
+
+  .kds-header h1 {
+    font-size: 18px;
+  }
+}
