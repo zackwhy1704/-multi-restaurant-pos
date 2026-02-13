@@ -7,7 +7,7 @@ import MerchantDashboard from './components/MerchantDashboard';
 import './App.css';
 
 // Initialize Stripe
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
 function App() {
   const [view, setView] = useState('customer'); // 'customer', 'kitchen', or 'merchant'
